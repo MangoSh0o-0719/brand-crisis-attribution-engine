@@ -1,0 +1,140 @@
+{
+  "generated_at": "2026-02-28T16:41:23.935306+00:00",
+  "profile": "cpu_int8",
+  "device": "cpu",
+  "hf_endpoint": "https://hf-mirror.com",
+  "tests": {
+    "sentiment5_roberta_topic": {
+      "load_ok": true,
+      "inference_ok": true,
+      "device": "cpu",
+      "num_labels": 5,
+      "id2label": {
+        "0": "strongly negative",
+        "1": "negative",
+        "2": "negative or neutral",
+        "3": "positive",
+        "4": "strongly positive"
+      },
+      "sent5_target_used": "SHEIN",
+      "sample_pred_label": "negative",
+      "sample_probs": [
+        0.044845473021268845,
+        0.933387279510498,
+        0.01938767544925213,
+        0.0015639576595276594,
+        0.0008156220428645611
+      ],
+      "sent5_valence_expected": -1.019883023807779,
+      "sent5_extremity": 1.019883023807779,
+      "sent5_uncertainty_entropy": 0.29591959714889526,
+      "load_ms": 428,
+      "infer_ms": 76
+    },
+    "embedding_all-MiniLM-L6-v2": {
+      "load_ok": true,
+      "inference_ok": true,
+      "embedding_dim": 384,
+      "sample_cosine_similarity": -0.034321099519729614,
+      "load_ms": 41,
+      "infer_ms": 16
+    },
+    "summarizer_distilbart-cnn-12-6": {
+      "load_ok": true,
+      "inference_ok": true,
+      "sample_summary": " People in the comments argue about whether the brand uses forced labor . Many users express anger and call for boycotts . Others dispute the claims and dispute the",
+      "load_ms": 1428,
+      "infer_ms": 1014
+    },
+    "nli_deberta_mnli_fever_anli": {
+      "load_ok": true,
+      "inference_ok": true,
+      "sample_probs": [
+        [
+          0.9399622082710266,
+          0.058278828859329224,
+          0.0017589960480108857
+        ],
+        [
+          9.78203461272642e-05,
+          0.0002606486086733639,
+          0.9996415376663208
+        ]
+      ],
+      "sample_labels": [
+        "entailment",
+        "contradiction"
+      ],
+      "load_ms": 562,
+      "infer_ms": 136
+    }
+  },
+  "offline": {
+    "tests": {
+      "sentiment5_roberta_topic": {
+        "load_ok": true,
+        "inference_ok": true,
+        "device": "cpu",
+        "num_labels": 5,
+        "id2label": {
+          "0": "strongly negative",
+          "1": "negative",
+          "2": "negative or neutral",
+          "3": "positive",
+          "4": "strongly positive"
+        },
+        "sent5_target_used": "SHEIN",
+        "sample_pred_label": "negative",
+        "sample_probs": [
+          0.044845473021268845,
+          0.933387279510498,
+          0.01938767544925213,
+          0.0015639576595276594,
+          0.0008156220428645611
+        ],
+        "sent5_valence_expected": -1.019883023807779,
+        "sent5_extremity": 1.019883023807779,
+        "sent5_uncertainty_entropy": 0.29591959714889526,
+        "load_ms": 256,
+        "infer_ms": 80
+      },
+      "embedding_all-MiniLM-L6-v2": {
+        "load_ok": true,
+        "inference_ok": true,
+        "embedding_dim": 384,
+        "sample_cosine_similarity": -0.034321099519729614,
+        "load_ms": 46,
+        "infer_ms": 26
+      },
+      "summarizer_distilbart-cnn-12-6": {
+        "load_ok": true,
+        "inference_ok": true,
+        "sample_summary": " People in the comments argue about whether the brand uses forced labor . Many users express anger and call for boycotts . Others dispute the claims and dispute the",
+        "load_ms": 1221,
+        "infer_ms": 972
+      },
+      "nli_deberta_mnli_fever_anli": {
+        "load_ok": true,
+        "inference_ok": true,
+        "sample_probs": [
+          [
+            0.9399622082710266,
+            0.058278828859329224,
+            0.0017589960480108857
+          ],
+          [
+            9.78203461272642e-05,
+            0.0002606486086733639,
+            0.9996415376663208
+          ]
+        ],
+        "sample_labels": [
+          "entailment",
+          "contradiction"
+        ],
+        "load_ms": 393,
+        "infer_ms": 80
+      }
+    }
+  }
+}

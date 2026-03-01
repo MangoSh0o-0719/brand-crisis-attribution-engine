@@ -1,0 +1,41 @@
+sentiment_terms:
+  - horrible
+  - awful
+  - terrible
+  - disgusting
+  - shame
+  - shameful
+  - sad
+  - tragic
+  - boycott
+  - cancel
+  - evil
+  - sick
+  - insane
+  - amazing
+  - great
+  - love
+  - excellent
+
+domain_terms:
+  - slavery
+  - slave
+  - forced
+  - labor
+  - labour
+  - sweatshop
+  - exploitation
+  - exploit
+  - child
+  - trafficking
+  - abuse
+  - rights
+  - wages
+  - factory
+  - factories
+  - pollution
+  - toxic
+  - waste
+  - environment
+  - climate
+  - greenwashing

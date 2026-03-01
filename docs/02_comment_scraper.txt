@@ -1,0 +1,28 @@
+# 🕷️ Module 02: 全量评论抓取与原始语料入库 (Raw Comment Ingestion & Scraper)
+
+> **🎯 模块业务目标：**
+> 本模块承接 01 模块锁定的高价值视频候选集（Video Candidates），利用 YouTube Data API v3 的 `commentThreads` 接口进行深度下钻挖掘。抓取全量底层用户评论文本及核心互动指标，并建立严格的数据质量门禁（Quality Gate），防止脏数据污染下游 NLP 情感分析与聚类管线。
+
+### 🔌 Cell 1 & 2 - 上游资产自动嗅探与环境初始化 (Upstream Handoff & Env Setup)
+* **职责**：
+  1. 挂载 Google API 环境并加载 `.env` 密钥。
+  2. **智能承接**：利用 `glob` 自动嗅探 01 模块生成的最新时间戳文件夹，读取三大控制组（SHEIN、非 SHEIN、环保）的视频 ID 列表，实现管线间的无缝握手。
+
+### ⚙️ Cell 3 - 核心抓取引擎与节流控制 (Core Scraper Engine & Throttling)
+* **职责**：定义 `get_video_comments` 原子函数，处理 API 分页（Pagination）与配额限制。
+* **核心采集指标 (The Raw Assets)**：
+  * 📝 `textOriginal`：原汁原味的用户文本。这是下游 04 模块大模型判断**【真实情感极性 (True Sentiment)】**的唯一基座。
+  * 👍 `likeCount`：**评论级点赞量 (Comment Engagement)**。
+    > *🚨 架构声明：此处的点赞量是后续 05 模块计分卡中 `W_ENGAGEMENT (点赞加权负面率)` 以及 07 模块象限图 Y轴 `引爆效率 (Virality)` 的底层数学支撑！*
+  * ⏱️ `publishedAt` & 👤 `authorDisplayName`：时序与用户身份元数据。
+
+### 🚀 Cell 4 - 自动化入库流水线 (Automated Ingestion Pipeline)
+* **职责**：遍历上游传入的每一个 Video ID，调用抓取引擎，实施全自动化批量采集。
+* **业务标签对齐**：在入库时，强制打上 `group_key` 标签（如 `shein_labor_exploitation`），确保原始数据在进入 03 模块大熔炉前，其阵营归属绝对清晰。
+* **输出**：按阵营落地生成三份绝对隔离的原始语料库（Raw CSVs）。
+
+### 🛡️ Cell 5 - 工业级数据质量门禁 (Quality Gate & Validation)
+* **职责**：在数据正式进入 03 清洗车间前，执行三道硬核防线：
+  1. **契约校验 (Schema Validation)**：拦截漏抓的关键字段（防止 `likeCount` 丢失导致下游 SIS 公式崩溃）。
+  2. **唯一性校验 (Deduplication Check)**：扫描重复的 `comment_id`，防止水军或 API 游标错误导致的流量重复计算。
+  3. **存活量校验 (Volume Threshold)**：强制设定 NLP 分析底线（例如单组必须 >100 条）。若不达标，立即触发 `PIPELINE BLOCKED` 熔断机制，防止下游聚类算法发生严重过拟合或“坍缩”。

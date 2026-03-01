@@ -1,0 +1,80 @@
+youtube_api:
+  order: relevance
+  published_after: '2020-01-01T00:00:00Z'
+  min_duration_minutes: 2
+  min_comment_count: 50
+  max_results_per_keyword: 150
+groups:
+  shein_labor:
+    description: 'SHEIN × LABOR: modern slavery / forced labor / sweatshop etc.'
+    keywords:
+    - shein modern slavery
+    - shein forced labor
+    - shein sweatshop
+    - shein labor exploitation
+    - shein factory workers
+    - shein working conditions
+    - shein child labor
+    - shein slave labor
+    - shein forced labour
+    - shein sweatshop documentary
+    - shein labor scandal
+    - shein worker exploitation
+    - shein workers rights
+    - shein garment factory conditions
+    max_videos: 60
+  shein_environment:
+    description: 'SHEIN × ENV: pollution / waste / sustainability / greenwashing etc.'
+    keywords:
+    - shein environmental impact
+    - shein sustainability
+    - shein pollution
+    - shein textile waste
+    - shein greenwashing
+    - shein toxic chemicals
+    - shein clothing haul waste
+    - shein carbon footprint
+    max_videos: 40
+  non_shein_labor:
+    description: 'NON_SHEIN × LABOR: other fast fashion brands labor issues.'
+    keywords:
+    - zara forced labor
+    - h&m labor abuse
+    - forever 21 sweatshop
+    - fast fashion labor exploitation
+    - garment workers abuse
+    - modern slavery fashion industry
+    - boohoo sweatshop scandal
+    - uniqlo labor rights
+    - zara child labor documentary
+    - zara sweatshop
+    - zara labor exploitation
+    - zara supply chain forced labor
+    - zara child labour
+    - h&m sweatshop
+    - h&m forced labor
+    - h&m forced labour
+    - bershka sweatshop
+    - pull&bear sweatshop
+    - shopee sweatshop
+    - fast fashion sweatshop documentary
+    - fast fashion forced labor documentary
+    - garment workers forced labor
+    - labor rights garment industry
+    - child labor garment industry
+    max_videos: 60
+  non_shein_environment:
+    description: 'NON_SHEIN × ENV: other fast fashion brands environmental issues.'
+    keywords:
+    - zara environmental impact
+    - h&m sustainability greenwashing
+    - fast fashion pollution
+    - fashion industry waste landfill
+    - textile waste fast fashion
+    - fast fashion sustainability
+    - fast fashion environmental cost
+    - zara greenwashing
+    - fast fashion carbon footprint
+    - fast fashion climate impact
+    - textile waste fast fashion
+    max_videos: 40

@@ -1,0 +1,26 @@
+# 🛠️ Module 00: 基础设施初始化与离线大模型部署 (Infrastructure & Model Setup)
+
+> **🎯 模块业务目标：**
+> 离线可复现的建模/推断层（inference layer）。通过一次性牵引并固化所需的所有 Transformer 大语言模型权重，确保下游 NLP 流水线（情感打标、聚类降维、智能摘要）的绝对稳定与可复现性。
+
+### 🌐 Cell 1 - 全局网络加速与环境预检 (Network & Env Setup)
+* **职责**：配置国内 HuggingFace 镜像加速环境变量 (`HF_ENDPOINT`)，突破网络墙限制，初始化本地化模型存放目录 (`models/`)。
+
+### 🧠 Cell 2 - 离线情感分类引擎下载 (Sentiment Classification Engine)
+* **目标模型**：`cardiffnlp/twitter-roberta-base-sentiment-latest`
+* **下游职责 (赋能 04/05 模块)**：
+  * 该模型将为评论产出基础的【标签 (Label)】与【置信度 (Confidence Score)】。
+  * **🚨 架构声明**：此引擎输出的置信度，将在 05 模块被严格重构为 **`Negative Consensus (负面共识度)`** 与 **`True Sentiment (真实情感极性, -1 to 1)`**，切勿直接视为绝对情感烈度。
+
+### 📐 Cell 3 - 离线高维语义表示引擎下载 (Semantic Embedding Engine)
+* **目标模型**：`all-MiniLM-L6-v2` (SBERT)
+* **下游职责 (赋能 07 模块)**：
+  * 作为无监督聚类的基石，负责将文本转化为 384 维的高密实度向量空间（Vector Space）。
+  * 支撑 07 模块底层 HDBSCAN 的话题聚类，以及计算高赞评论的 **`Centroid (质心/高维几何中心)`** 以寻找“黄金代表性言论”。
+
+### 🤖 Cell 4 - 离线智能摘要大模型部署 (Generative Summarization Engine)
+* **目标模型**：`sshleifer/distilbart-cnn-12-6`
+* **下载策略**：启用企业级 `snapshot_download` (支持断点续传与防软链接报错)。
+* **下游职责 (赋能 07 模块)**：
+  * 作为项目的“商业叙事翻译官”，将 07 模块中基于数学质心（Centroids）提取出的原始评论片段，压缩、提炼为极简且极具商业洞察的“短句痛点”（如 *Sweatshop and labor conditions*）。
+  * 附带引擎点火测试 (Dry Run)，确保断网状态下推理管道完美连通。

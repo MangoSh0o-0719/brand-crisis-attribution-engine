@@ -1,0 +1,24 @@
+hf_endpoint: https://hf-mirror.com
+runtime_profile: cpu_int8
+include_optional_vad: false
+models:
+- model_key: sentiment5_roberta_topic
+  task: sentiment5
+  repo_id: cardiffnlp/twitter-roberta-base-topic-sentiment-latest
+  revision: 2a22856f5ba06734a1bb18b228f98382f8d50821
+  local_dir: models/sentiment5_roberta_topic
+- model_key: embedding_all-MiniLM-L6-v2
+  task: embedding
+  repo_id: sentence-transformers/all-MiniLM-L6-v2
+  revision: c9745ed1d9f207416be6d2e6f8de32d1f16199bf
+  local_dir: models/embedding_all-MiniLM-L6-v2
+- model_key: summarizer_distilbart-cnn-12-6
+  task: summarization
+  repo_id: sshleifer/distilbart-cnn-12-6
+  revision: a4f8f3ea906ed274767e9906dbaede7531d660ff
+  local_dir: models/summarizer_distilbart-cnn-12-6
+- model_key: nli_deberta_mnli_fever_anli
+  task: nli
+  repo_id: MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli
+  revision: 6f5cf0a2b59cabb106aca4c287eed12e357e90eb
+  local_dir: models/nli_deberta_mnli_fever_anli

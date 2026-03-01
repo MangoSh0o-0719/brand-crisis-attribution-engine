@@ -1,0 +1,31 @@
+# 🧹 Module 03: 工业级语料降噪与特征工程流水线 (Industrial Corpus Sanitization & Feature Engineering)
+
+> **🎯 模块业务目标：**
+> 社交媒体原始数据（Raw Data）充斥着极高的“结构性底噪（HTML标签、URL、乱码）”。本模块作为标准的 ETL 转换中枢，旨在通过正则降噪引擎，将杂乱的原始数据提纯为高信噪比的 NLP 语料底座（Clean Corpus）。同时，前置提取并固化表征用户情绪烈度的衍生统计学特征，为下游 04 情感大模型与 05 传播机制分析提供绝对干净的弹药。
+
+### 🔌 Cell 1 & 2 - 上游数据嗅探与环境挂载 (Upstream Handshake & Env Setup)
+* **职责**：
+  1. 挂载 `pandas`, `re` 等数据清洗基础依赖。
+  2. **版本追踪 (Version Tracking)**：利用 `glob` 自动寻址 02 模块生成的最新时间戳快照，实现工程管线间的动态握手，彻底杜绝硬编码（Hardcoding）带来的路径崩溃。
+
+### ⚙️ Cell 3 - 核心引擎：正则降噪与文本提纯 (Regex Denoising Engine)
+* **职责**：定义 `clean_comment_text` 核心算子，执行多级过滤管道：
+  1. **超链接剥离 (URL Removal)**：防止模型将 HTTP 链接误判为特定语义。
+  2. **富文本清洗 (HTML/Newline Stripping)**：抹平换行符与转义字符，将非结构化文本彻底压平。
+  3. **特殊符号过滤 (Special Char Sanitization)**：仅保留英文字母、数字及基础标点，降低模型词表映射（Tokenization）时的 OOV (Out-of-Vocabulary) 错误率。
+
+### 🧬 Cell 4 - 衍生特征工程：表达欲指标抽取 (Feature Engineering: User Effort)
+* **职责**：在文本被彻底清洗后，基于清洗后的 `clean_text` 计算分词长度。
+* **🚨 战略指标对齐**：生成 `text_len` 字段。
+  * **学术价值**：该字段将被直接注入下游 05 模块，作为衡量网民 **`User Effort (表达欲 / 情感宣泄成本)`** 的核心量化自变量。用于验证“长篇大论是否通常与极端的负面情绪 (True Sentiment) 深度绑定”。
+
+### 🛡️ Cell 5 - 工业级数据清洗与空值剔除 (Batch Processing & Null Handling)
+* **职责**：
+  1. 遍历三大控制组阵营的数据框，通过 `.apply()` 向量化执行清洗算子。
+  2. **硬性截断机制**：剔除清洗后变成空白（Empty Strings）或 NaN 的脏数据，防止其在下游 07 模块的高维 UMAP 降维中引发 `ZeroDivisionError` 或引发聚类黑洞。
+
+### 💾 Cell 6 & 7 - 高纯度语料持久化与质量抽检 (Asset Persistence & Quality Preview)
+* **职责**：
+  1. 创建全新的时间戳输出目录（`data_03_cleaned_comments_...`），维持极度严谨的数据血缘（Data Lineage）和版本控制。
+  2. 落地生成供 LLM 消费的干净 CSV 资产。
+  3. 打印“清洗前 vs 清洗后”的对比视图，进行最终的人工 QA（Quality Assurance）确认。

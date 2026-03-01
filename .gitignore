@@ -1,0 +1,20 @@
+```gitignore
+# data & artifacts
+Data/data_*/
+Data/**/replies.parquet
+Data/**/top_level_comments.parquet
+Data/**/cleaned_*.parquet
+Data/**/sentiment*.parquet
+Data/**/*.npy
+
+# local models (too big for git)
+models/
+
+# notebook junk
+**/.ipynb_checkpoints/
+__pycache__/
+*.pyc
+
+# env
+.venv/
+.env
