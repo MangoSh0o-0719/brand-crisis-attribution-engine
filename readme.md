@@ -8,52 +8,39 @@ Unlike traditional sentiment tools, this pipeline quantifies Resonance (alignmen
 
 ```mermaid
 graph LR
-    %% 全局样式定义：解决对比度问题
+    %% 全局样式定义：高对比度白色文字
     classDef infra fill:#2E86C1,stroke:#1B4F72,stroke-width:2px,color:#fff,font-weight:bold;
-    classDef eng fill:#D6EAF8,stroke:#2E86C1,stroke-width:1px,color:#1B4F72;
+    classDef eng fill:#5DADE2,stroke:#2E86C1,stroke-width:1px,color:#fff,font-weight:bold;
     classDef ai fill:#8E44AD,stroke:#4A235A,stroke-width:2px,color:#fff,font-weight:bold;
     classDef stat fill:#D35400,stroke:#6E2C00,stroke-width:2px,color:#fff,font-weight:bold;
     classDef app fill:#27AE60,stroke:#186A3B,stroke-width:4px,color:#fff,font-weight:bold;
 
-    %% 阶段一：基础设施与工程
-    subgraph P1 ["Phase 1: Engineering"]
-        00["00_Setup_Models<br/>(Local Registry)"]
-        01["01_Video_Candidate<br/>(Discovery)"]
-        02["02_Comment_Scraper<br/>(Scraping)"]
-        03["03_Comment_Cleaning<br/>(Sanitization)"]
+    subgraph P1 ["Phase 1: Foundation & Data Pipeline"]
+        00["00_Setup_Models<br/>(Registry & Local Snapshot)"]
+        01["01_Video_Candidate<br/>(2x2 Matrix Selection)"]
+        02["02_Comment_Scraper<br/>(Multi-key API Rotation)"]
+        03["03_Comment_Cleaning<br/>(Text Normalization)"]
     end
 
-    %% 阶段二：AI 推理
     subgraph P2 ["Phase 2: AI Inference"]
         04["04_Sentiment_Analysis<br/>(RoBERTa 5-Class)"]
-        07["07_Stance_Inference<br/>(Zero-Shot NLI)"]
+        07["07_Stance_Inference<br/>(NLI Stance & Resonance)"]
     end
 
-    %% 阶段三：归因分析
     subgraph P3 ["Phase 3: Analytics"]
-        05["05_Scorecard<br/>(Bootstrap 95% CI)"]
-        08["08_Topic_Modeling<br/>(HDBSCAN + Lift)"]
-        06["06_Dashboard_HTML<br/>(Asset Gen)"]
+        05["05_Scorecard<br/>(Weighted Bootstrap 95% CI)"]
+        08["08_Topic_Modeling<br/>(c-TF-IDF & Stance-Aware Priority)"]
+        06["06_Dashboard_HTML<br/>(KPI Cards & Forest Plots)"]
     end
 
-    %% 阶段四：交付
     subgraph P4 ["Phase 4: Delivery"]
-        App["Streamlit Dashboard<br/>(Live App)"]
+        App["Streamlit Dashboard<br/>(Live Dashboard)"]
     end
 
-    %% 核心数据流：粗实线
-    01 ==> 02
-    02 ==> 03
-    03 ==> 04
+    %% 核心数据流
+    01 ==> 02 ==> 03 ==> 04 ==> 05 ==> 06 ==> App
     03 ==> 07
-    04 ==> 05
-    04 ==> 07
-    07 ==> 08
-    05 ==> 06
-    06 ==> App
-    08 ==> App
-
-    %% 模型依赖流：点线 (减少视觉重叠干扰)
+    04 ==> 07 ==> 08 ==> App
     00 -.-> 04
     00 -.-> 07
     00 -.-> 08
