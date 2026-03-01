@@ -6,7 +6,44 @@ Project Overview
 This project is an industrial-grade, end-to-end NLP analytics pipeline designed to dissect brand crises on social media. Using Shein's "Modern Slavery" controversy as a case study, the engine transforms thousands of raw YouTube comments into high-dimensional business intelligence.
 Unlike traditional sentiment tools, this pipeline quantifies Resonance (alignment), Controversy (polarization), and Topic Lift (brand-specific risk) using state-of-the-art LLM techniques including NLI Stance Detection and HDBSCAN Clustering.
 
-This project builds an end-to-end analytics pipeline for YouTube comments:
+graph TD
+    subgraph "Infrastructure"
+        00[00_Setup_Models]
+    end
+
+    subgraph "Data Engineering"
+        01[01_Video_Candidate] --> 02[02_Comment_Scraper]
+        02 --> 03[03_Comment_Cleaning]
+    end
+
+    subgraph "AI Inference (Critical Path)"
+        03 --> 04[04_Sentiment_Analysis]
+        03 --> 07[07_Stance_Inference]
+        04 -.-> 07
+    end
+
+    subgraph "Analytics & Attribution"
+        04 --> 05[05_Scorecard]
+        07 --> 08[08_Topic_Modeling]
+        05 --> 06[06_Dashboard_HTML]
+    end
+
+    subgraph "Delivery"
+        06 --> App[Streamlit App]
+        08 --> App
+    end
+
+    %% Model Dependency
+    00 ==> 04
+    00 ==> 07
+    00 ==> 08
+
+    %% Styling
+    style 00 fill:#D6EAF8,stroke:#2E86C1
+    style 04 fill:#EBDEF0,stroke:#8E44AD
+    style 07 fill:#EBDEF0,stroke:#8E44AD
+    style App fill:#E9F7EF,stroke:#27AE60,stroke-width:4px
+
 - Collect top-level comments and replies by video query
 - Clean and normalize text
 - Run 5-class sentiment/valence scoring
