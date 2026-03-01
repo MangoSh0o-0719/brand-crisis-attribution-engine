@@ -1,5 +1,32 @@
 YouTube Comment Sentiment Analysis — Risk, Resonance & Topic Attribution
 
+Live Interactive Dashboard: [Explore the Analysis Results Here](https://brand-crisis-attribution-engine-8cdyn2v5ymytewbxdrlybc.streamlit.app/)
+
+Project Overview
+This project is an industrial-grade, end-to-end NLP analytics pipeline designed to dissect brand crises on social media. Using Shein's "Modern Slavery" controversy as a case study, the engine transforms thousands of raw YouTube comments into high-dimensional business intelligence.
+
+Unlike traditional sentiment tools, this pipeline quantifies Resonance (alignment), Controversy (polarization), and Topic Lift (brand-specific risk) using state-of-the-art LLM techniques including NLI Stance Detection and HDBSCAN Clustering.
+
+High-Level Architecture
+The pipeline is built as a modular "Data Enrichment" sequence, where each stage adds a new layer of semantic depth:
+
+Collection & Sanitization: Multi-key YouTube scraping followed by lexicon-based cleaning.
+
+Sentiment Layer: 5-class valence scoring using RoBERTa to capture emotional extremity.
+
+Inference Layer (NLI): Zero-shot Natural Language Inference to determine if replies entail or contradict the parent claim (Resonance vs. Controversy).
+
+Attribution Layer: c-TF-IDF and HDBSCAN clustering to identify topics that over-index specifically for the target brand (Lift).
+
+Synthesis: Generative AI summarization of high-risk clusters.
+
+📊 Key Analytics Modules
+1. Risk Attribution (The "Lift" Metric)
+Identifies which negative topics are uniquely concentrated on the target brand compared to competitors, filtering out "industry-wide noise" to find specific vulnerabilities.
+
+2. Stance-Aware Priority
+Fuses sentiment, engagement, and NLI stance into a single "Destructiveness Score", allowing PR teams to prioritize topics that are not just negative, but highly infectious and persuasive.
+
 Overview
 This project builds an end-to-end analytics pipeline for YouTube comments:
 - Collect top-level comments and replies by video query
