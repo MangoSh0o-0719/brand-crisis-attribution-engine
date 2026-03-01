@@ -7,44 +7,64 @@ This project is an industrial-grade, end-to-end NLP analytics pipeline designed 
 Unlike traditional sentiment tools, this pipeline quantifies Resonance (alignment), Controversy (polarization), and Topic Lift (brand-specific risk) using state-of-the-art LLM techniques including NLI Stance Detection and HDBSCAN Clustering.
 
 ```mermaid
-graph TD
-    %% 定义阶段节点
-    subgraph "Phase 1: Infrastructure & Data Engineering"
-        00["00_Setup_Models<br/>(Local Registry & Locking)"]
-        01["01_Video_Candidate<br/>(Discovery & 2x2 Matrix)"]
-        02["02_Comment_Scraper<br/>(Multi-key Scraping)"]
-        03["03_Comment_Cleaning<br/>(Regex Sanitization)"]
+graph LR
+    %% 全局样式定义：解决对比度问题
+    classDef infra fill:#2E86C1,stroke:#1B4F72,stroke-width:2px,color:#fff,font-weight:bold;
+    classDef eng fill:#D6EAF8,stroke:#2E86C1,stroke-width:1px,color:#1B4F72;
+    classDef ai fill:#8E44AD,stroke:#4A235A,stroke-width:2px,color:#fff,font-weight:bold;
+    classDef stat fill:#D35400,stroke:#6E2C00,stroke-width:2px,color:#fff,font-weight:bold;
+    classDef app fill:#27AE60,stroke:#186A3B,stroke-width:4px,color:#fff,font-weight:bold;
+
+    %% 阶段一：基础设施与工程
+    subgraph P1 ["Phase 1: Engineering"]
+        00["00_Setup_Models<br/>(Local Registry)"]
+        01["01_Video_Candidate<br/>(Discovery)"]
+        02["02_Comment_Scraper<br/>(Scraping)"]
+        03["03_Comment_Cleaning<br/>(Sanitization)"]
     end
 
-    subgraph "Phase 2: AI Inference & Advanced NLP"
-        04["04_Sentiment_Analysis<br/>(RoBERTa 5-Class Prediction)"]
-        07["07_Stance_Inference<br/>(Zero-Shot NLI Reasoning)"]
+    %% 阶段二：AI 推理
+    subgraph P2 ["Phase 2: AI Inference"]
+        04["04_Sentiment_Analysis<br/>(RoBERTa 5-Class)"]
+        07["07_Stance_Inference<br/>(Zero-Shot NLI)"]
     end
 
-    subgraph "Phase 3: Analytics & Attribution"
-        05["05_Scorecard<br/>(Weighted Bootstrap & 95% CI)"]
-        08["08_Topic_Modeling<br/>(HDBSCAN + c-TF-IDF + Lift)"]
-        06["06_Dashboard_HTML<br/>(KPI & Asset Generation)"]
+    %% 阶段三：归因分析
+    subgraph P3 ["Phase 3: Analytics"]
+        05["05_Scorecard<br/>(Bootstrap 95% CI)"]
+        08["08_Topic_Modeling<br/>(HDBSCAN + Lift)"]
+        06["06_Dashboard_HTML<br/>(Asset Gen)"]
     end
 
-    subgraph "Phase 4: Delivery"
-        App["Streamlit Dashboard<br/>(Interactive Business Report)"]
+    %% 阶段四：交付
+    subgraph P4 ["Phase 4: Delivery"]
+        App["Streamlit Dashboard<br/>(Live App)"]
     end
 
-    %% 数据流向连接
-    00 ==> 04 & 07 & 08
-    01 --> 02 --> 03
-    03 --> 04 & 07
-    04 --> 05 & 07
-    05 --> 06
-    07 --> 08
-    06 & 08 --> App
+    %% 核心数据流：粗实线
+    01 ==> 02
+    02 ==> 03
+    03 ==> 04
+    03 ==> 07
+    04 ==> 05
+    04 ==> 07
+    07 ==> 08
+    05 ==> 06
+    06 ==> App
+    08 ==> App
 
-    %% 样式美化
-    style 00 fill:#D6EAF8,stroke:#2E86C1
-    style 04 fill:#EBDEF0,stroke:#8E44AD
-    style 07 fill:#EBDEF0,stroke:#8E44AD
-    style App fill:#E9F7EF,stroke:#27AE60,stroke-width:4px
+    %% 模型依赖流：点线 (减少视觉重叠干扰)
+    00 -.-> 04
+    00 -.-> 07
+    00 -.-> 08
+
+    %% 应用样式
+    class 00 infra;
+    class 01,02,03 eng;
+    class 04,07 ai;
+    class 05,08 stat;
+    class 06 deliver;
+    class App app;
 ```
 
 - Collect top-level comments and replies by video query
