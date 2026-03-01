@@ -7,38 +7,39 @@ This project is an industrial-grade, end-to-end NLP analytics pipeline designed 
 Unlike traditional sentiment tools, this pipeline quantifies Resonance (alignment), Controversy (polarization), and Topic Lift (brand-specific risk) using state-of-the-art LLM techniques including NLI Stance Detection and HDBSCAN Clustering.
 
 graph TD
-    subgraph "Infrastructure"
-        00[00_Setup_Models]
+    %% 定义阶段节点
+    subgraph "Phase 1: Infrastructure & Data Engineering"
+        00["00_Setup_Models<br/>(Local Registry & Locking)"]
+        01["01_Video_Candidate<br/>(Discovery & 2x2 Matrix)"]
+        02["02_Comment_Scraper<br/>(Multi-key Scraping)"]
+        03["03_Comment_Cleaning<br/>(Regex Sanitization)"]
     end
 
-    subgraph "Data Engineering"
-        01[01_Video_Candidate] --> 02[02_Comment_Scraper]
-        02 --> 03[03_Comment_Cleaning]
+    subgraph "Phase 2: AI Inference & Advanced NLP"
+        04["04_Sentiment_Analysis<br/>(RoBERTa 5-Class Prediction)"]
+        07["07_Stance_Inference<br/>(Zero-Shot NLI Reasoning)"]
     end
 
-    subgraph "AI Inference (Critical Path)"
-        03 --> 04[04_Sentiment_Analysis]
-        03 --> 07[07_Stance_Inference]
-        04 -.-> 07
+    subgraph "Phase 3: Analytics & Attribution"
+        05["05_Scorecard<br/>(Weighted Bootstrap & 95% CI)"]
+        08["08_Topic_Modeling<br/>(HDBSCAN + c-TF-IDF + Lift)"]
+        06["06_Dashboard_HTML<br/>(KPI & Asset Generation)"]
     end
 
-    subgraph "Analytics & Attribution"
-        04 --> 05[05_Scorecard]
-        07 --> 08[08_Topic_Modeling]
-        05 --> 06[06_Dashboard_HTML]
+    subgraph "Phase 4: Delivery"
+        App["Streamlit Dashboard<br/>(Interactive Business Report)"]
     end
 
-    subgraph "Delivery"
-        06 --> App[Streamlit App]
-        08 --> App
-    end
+    %% 数据流向连接
+    00 ==> 04 & 07 & 08
+    01 --> 02 --> 03
+    03 --> 04 & 07
+    04 --> 05 & 07
+    05 --> 06
+    07 --> 08
+    06 & 08 --> App
 
-    %% Model Dependency
-    00 ==> 04
-    00 ==> 07
-    00 ==> 08
-
-    %% Styling
+    %% 样式美化
     style 00 fill:#D6EAF8,stroke:#2E86C1
     style 04 fill:#EBDEF0,stroke:#8E44AD
     style 07 fill:#EBDEF0,stroke:#8E44AD
