@@ -1,8 +1,5 @@
 import streamlit as st
 import pandas as pd
-import os
-import glob
-import shutil
 from pathlib import Path
 import streamlit.components.v1 as components
 
@@ -12,31 +9,16 @@ import streamlit.components.v1 as components
 st.set_page_config(page_title="Shein Sentiment Dashboard", page_icon="👗", layout="wide")
 st.title("🛍️ Shein Modern Slavery: Public Sentiment & Risk Dashboard")
 
+# 直接定位到你 GitHub 仓库中的 app_data 文件夹
 PROJECT_ROOT = Path(".").resolve()
 APP_DATA_DIR = PROJECT_ROOT / "app_data"
-DATA_DIR = PROJECT_ROOT / "Data"
-
-APP_DATA_DIR.mkdir(parents=True, exist_ok=True)
 
 # -----------------------------
 # 1) Utilities
 # -----------------------------
-def get_latest_dir(pattern: str) -> Path | None:
-    cands = glob.glob(str(DATA_DIR / pattern))
-    dirs = [Path(d) for d in cands if Path(d).is_dir()]
-    if not dirs:
-        return None
-    return max(dirs, key=lambda p: p.stat().st_mtime)
-
-def safe_copy(src: Path, dst_dir: Path):
-    try:
-        if src.is_file():
-            dst_dir.mkdir(parents=True, exist_ok=True)
-            shutil.copy(str(src), str(dst_dir))
-    except Exception as e:
-        st.warning(f"Copy failed: {src.name} ({e})")
-
 def list_assets(dir_path: Path):
+    if not dir_path.exists():
+        return [], []
     htmls = sorted([p.name for p in dir_path.glob("*.html")])
     csvs = sorted([p.name for p in dir_path.glob("*.csv")])
     return htmls, csvs
@@ -45,6 +27,7 @@ def load_html_chart(file_name: str, height: int = 750):
     path = APP_DATA_DIR / file_name
     if path.exists():
         html_data = path.read_text(encoding="utf-8", errors="ignore")
+        # 注入 CSS 确保图表在不同屏幕上完美适应
         responsive_css = "<style>body { margin: 0 !important; padding: 0 !important; overflow: hidden !important; }</style>"
         if "<head>" in html_data:
             html_data = html_data.replace("<head>", f"<head>{responsive_css}")
@@ -52,106 +35,23 @@ def load_html_chart(file_name: str, height: int = 750):
             html_data = responsive_css + html_data
         components.html(html_data, height=height, scrolling=False)
     else:
-        st.warning(f"Missing chart: {file_name} (expected at {path.as_posix()})")
-
-def load_csv_data(file_name: str) -> pd.DataFrame:
-    path = APP_DATA_DIR / file_name
-    if path.exists():
-        try:
-            return pd.read_csv(path)
-        except Exception as e:
-            st.warning(f"Failed to read CSV: {file_name} ({e})")
-    return pd.DataFrame()
+        st.error(f"⚠️ 找不到图表文件: {file_name}")
+        st.caption(f"请检查 GitHub 中 `app_data/` 目录下是否确切存在此文件，注意大小写必须完全一致。")
 
 # -----------------------------
-# 2) Asset sync (optional)
-#   - For Streamlit Cloud, you should commit demo artifacts into app_data/
-#   - Sync is mainly for local dev when you have Data/ outputs.
-# -----------------------------
-@st.cache_resource(show_spinner="正在从 Data 目录同步最新资产...")
-def sync_assets_to_app_data():
-    print("🚀 Starting automated asset synchronization...")
-    PROJECT_ROOT = "." 
-    APP_DATA_DIR = os.path.join(PROJECT_ROOT, "app_data")
-    DATA_DIR = os.path.join(PROJECT_ROOT, "Data")
-
-    # 🌟 核心修复：云端防傻机制！(千万别漏了这段)
-    if not os.path.exists(DATA_DIR):
-        print("☁️ 检测到云端环境 (无 Data/ 文件夹)。保留现有 app_data/，跳过同步。")
-        return "Cloud (06)", "Cloud (07)", "Cloud (08)"
-
-    # ======= 以下是你在本地运行时的同步逻辑 =======
-    if os.path.exists(APP_DATA_DIR):
-        try:
-            shutil.rmtree(APP_DATA_DIR)
-        except Exception as e:
-            print(f"Warning: Could not remove {APP_DATA_DIR}: {e}")
-    os.makedirs(APP_DATA_DIR, exist_ok=True)
-    # (keep any committed demo assets)
-    def copy_patterns(src_dir: Path, patterns: list[str]):
-        for pattern in patterns:
-            for fp in src_dir.glob(pattern):
-                if fp.is_file():
-                    safe_copy(fp, APP_DATA_DIR)
-
-    latest_06 = get_latest_dir("data_06*")
-    if latest_06:
-        # allow nested html/csv
-        for fp in latest_06.rglob("*.html"):
-            safe_copy(fp, APP_DATA_DIR)
-        for fp in latest_06.rglob("*.csv"):
-            safe_copy(fp, APP_DATA_DIR)
-
-    latest_07 = get_latest_dir("data_07*")
-    if latest_07:
-        for fp in latest_07.rglob("*.html"):
-            safe_copy(fp, APP_DATA_DIR)
-        for fp in latest_07.rglob("*.csv"):
-            safe_copy(fp, APP_DATA_DIR)
-
-    latest_08 = get_latest_dir("data_08*")
-    if latest_08:
-        # your 08 commonly saves figs/*.html + *.csv
-        for fp in (latest_08 / "figs").glob("*.html"):
-            safe_copy(fp, APP_DATA_DIR)
-        for fp in latest_08.glob("*.csv"):
-            safe_copy(fp, APP_DATA_DIR)
-
-    return latest_06, latest_07, latest_08
-
-# -----------------------------
-# 3) Sidebar
+# 2) Sidebar Navigation
 # -----------------------------
 st.sidebar.header("🎯 Navigation")
 
-enable_sync = st.sidebar.toggle(
-    "🔄 Sync from Data/ (local dev only)",
-    value=False,
-    help="On Streamlit Cloud, you typically commit demo outputs into app_data/ and keep Data/ out of git."
-)
-
-latest_06_dir, latest_07_dir, latest_08_dir = sync_assets_to_app_data(enable_sync)
-
-if st.sidebar.button("🔁 Refresh (rerun)"):
-    sync_assets_to_app_data.clear()
-    st.rerun()
-
-st.sidebar.markdown("---")
-
 htmls, csvs = list_assets(APP_DATA_DIR)
-st.sidebar.subheader("📦 app_data assets")
-st.sidebar.caption(f"HTML: {len(htmls)} | CSV: {len(csvs)}")
-with st.sidebar.expander("Show file list"):
-    st.write("HTML:", htmls if htmls else "None")
-    st.write("CSV:", csvs if csvs else "None")
+st.sidebar.subheader("📦 App Data Assets")
+st.sidebar.caption(f"已加载 HTML: {len(htmls)} 个 | CSV: {len(csvs)} 个")
+
+with st.sidebar.expander("查看已加载的文件列表"):
+    st.write("**HTML 图表:**", htmls if htmls else "空")
+    st.write("**CSV 数据:**", csvs if csvs else "空")
 
 st.sidebar.markdown("---")
-if latest_06_dir:
-    st.sidebar.success(f"📂 latest_06 mounted: `{latest_06_dir.name}`")
-if latest_07_dir:
-    st.sidebar.success(f"📂 latest_07 mounted: `{latest_07_dir.name}`")
-if latest_08_dir:
-    st.sidebar.success(f"📂 latest_08 mounted: `{latest_08_dir.name}`")
 
 current_view = st.sidebar.radio(
     "👁️ Select View:",
@@ -162,7 +62,7 @@ current_view = st.sidebar.radio(
 )
 
 # -----------------------------
-# 4) Pages
+# 3) Pages
 # -----------------------------
 if current_view == "📊 1. Macro Sentiment & Stance":
     st.header("Macro Sentiment Overview & Audience Stance")
