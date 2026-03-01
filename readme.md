@@ -45,6 +45,7 @@ graph TD
     style 04 fill:#EBDEF0,stroke:#8E44AD
     style 07 fill:#EBDEF0,stroke:#8E44AD
     style App fill:#E9F7EF,stroke:#27AE60,stroke-width:4px
+```
 
 - Collect top-level comments and replies by video query
 - Clean and normalize text
