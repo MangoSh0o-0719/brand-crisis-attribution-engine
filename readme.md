@@ -2,6 +2,11 @@
 
 ## Live Interactive Dashboard: [Explore the Analysis Results Here](https://brand-crisis-attribution-engine-8cdyn2v5ymytewbxdrlybc.streamlit.app/)
 
+## Screenshot
+<img width="2844" height="1161" alt="image" src="https://github.com/user-attachments/assets/51a8d04f-dfce-46f6-abd8-69dd72edff5b" />
+<img width="2787" height="1170" alt="image" src="https://github.com/user-attachments/assets/42f568fb-b1da-4c08-a26e-d94381081f9f" />
+<img width="2850" height="1328" alt="image" src="https://github.com/user-attachments/assets/d71bb2f3-3990-48ad-b221-3a8221e418e6" />
+
 ## Project Overview
 This project is an industrial-grade, end-to-end NLP analytics pipeline designed to dissect brand crises on social media. Using Shein's "Modern Slavery" controversy as a case study, the engine transforms thousands of raw YouTube comments into high-dimensional business intelligence.
 Unlike traditional sentiment tools, this pipeline quantifies Resonance (alignment), Controversy (polarization), and Topic Lift (brand-specific risk) using Transformer-based Embeddings, K-Means Clustering, and c-TF-IDF topic extraction."
