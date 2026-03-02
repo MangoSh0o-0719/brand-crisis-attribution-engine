@@ -29,7 +29,7 @@ graph LR
 
     subgraph P3 ["Phase 3: Analytics"]
         05["05_Scorecard<br/>(Weighted Bootstrap 95% CI)"]
-        08["08_Topic_Modeling<br/>(c-TF-IDF & Stance-Aware Priority)"]
+        08["08_Topic_Modeling<br/>(K-means & c-TF-IDF & Stance-Aware Priority)"]
         06["06_Dashboard_HTML<br/>(KPI Cards & Forest Plots)"]
     end
 
