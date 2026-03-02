@@ -1,4 +1,4 @@
-# YouTube Comment Sentiment Analysis — Risk, Resonance & Topic Attribution
+# Brand Crisis Attribution Engine: Strategic Sentiment & Resonance Analytics
 
 ## Live Interactive Dashboard: [Explore the Analysis Results Here](https://brand-crisis-attribution-engine-8cdyn2v5ymytewbxdrlybc.streamlit.app/)
 
