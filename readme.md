@@ -9,7 +9,7 @@
 
 ## Project Overview
 This project is an industrial-grade, end-to-end NLP analytics pipeline designed to dissect brand crises on social media. Using Shein's "Modern Slavery" controversy as a case study, the engine transforms thousands of raw YouTube comments into high-dimensional business intelligence.
-Unlike traditional sentiment tools, this pipeline quantifies Resonance (alignment), Controversy (polarization), and Topic Lift (brand-specific risk) using Transformer-based Embeddings, K-Means Clustering, and c-TF-IDF topic extraction."
+Unlike traditional sentiment tools, this pipeline quantifies Resonance (alignment), Controversy (polarization), and Topic Lift (brand-specific risk) using Transformer-based Embeddings, K-Means Clustering, and c-TF-IDF topic extraction.
 
 ```mermaid
 graph LR
