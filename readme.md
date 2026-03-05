@@ -35,7 +35,7 @@ graph LR
     subgraph P3 ["Phase 3: Analytics"]
         05["05_Scorecard<br/>(Weighted Bootstrap 95% CI)"]
         08["08_Topic_Modeling<br/>(K-means & c-TF-IDF & Stance-Aware Priority)"]
-        06["06_Dashboard_HTML<br/>(KPI Cards & Forest Plots)"]
+        06["06_Interactive charts of statistical results<br/>(KPI Cards & Forest Plots)"]
     end
 
     subgraph P4 ["Phase 4: Delivery"]
