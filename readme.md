@@ -1,19 +1,94 @@
 # Brand Crisis Attribution Engine: Strategic Sentiment & Resonance Analytics
 
-## Live Interactive Dashboard: [Explore the Analysis Results Here](https://brand-crisis-attribution-engine-8cdyn2v5ymytewbxdrlybc.streamlit.app/)
+## Live Interactive Dashboard
+[Explore the Dashboard](https://brand-crisis-attribution-engine-8cdyn2v5ymytewbxdrlybc.streamlit.app/)
 
-## Dashboard Screenshot:
-<img width="2844" height="1161" alt="image" src="https://github.com/user-attachments/assets/51a8d04f-dfce-46f6-abd8-69dd72edff5b" />
-<img width="2787" height="1170" alt="image" src="https://github.com/user-attachments/assets/42f568fb-b1da-4c08-a26e-d94381081f9f" />
-<img width="2850" height="1328" alt="image" src="https://github.com/user-attachments/assets/d71bb2f3-3990-48ad-b221-3a8221e418e6" />
+## Portfolio Deliverables
+- **Business Report (PDF):** `reports/Changyu_BrandCrisis_Analytics_Portfolio.pdf`
+- **Interactive Dashboard:** Streamlit app above
+- **Code & Notebooks:** current repository
+
+## Dashboard Preview
+<img width="2844" height="1161" alt="dashboard_1" src="https://github.com/user-attachments/assets/51a8d04f-dfce-46f6-abd8-69dd72edff5b" />
+<img width="2787" height="1170" alt="dashboard_2" src="https://github.com/user-attachments/assets/42f568fb-b1da-4c08-a26e-d94381081f9f" />
+<img width="2850" height="1328" alt="dashboard_3" src="https://github.com/user-attachments/assets/d71bb2f3-3990-48ad-b221-3a8221e418e6" />
+
+---
 
 ## Project Overview
-This project is an industrial-grade, end-to-end NLP analytics pipeline designed to dissect brand crises on social media. Using Shein's "Modern Slavery" controversy as a case study, the engine transforms thousands of raw YouTube comments into high-dimensional business intelligence.
-Unlike traditional sentiment tools, this pipeline quantifies Resonance (alignment), Controversy (polarization), and Topic Lift (brand-specific risk) using Transformer-based Embeddings, K-Means Clustering, and c-TF-IDF topic extraction.
+This project is an end-to-end NLP analytics pipeline for diagnosing brand crises on social media. Using **Shein’s labor controversy** as a case study, the project applies a **2×2 comparative design**—target brand vs. peers, crisis topic vs. neutral topic—to move from raw YouTube comments to business-facing outputs such as:
 
+- **macro risk validation**
+- **high-risk topic identification**
+- **brand-specific attribution analysis**
+- **discussion escalation diagnosis**
+- **response prioritization**
+
+Rather than stopping at sentiment description, this project focuses on a more decision-oriented question:
+
+> **Which risks are merely noisy, and which are both amplifiable and likely to be stably attributed to the brand?**
+
+The full business-facing write-up is available in the report:  
+`reports/Changyu_BrandCrisis_Analytics_Portfolio.pdf`
+
+---
+
+## Key Findings
+- **Shein-related labor discussions show materially higher composite risk** than benchmark comparison cells, indicating a real crisis increment rather than isolated negative noise.
+- **Topic-level analysis identifies high-risk themes** in labor exploitation, purchase refusal/rationalization, influencer backlash, and fast-fashion value conflict.
+- **High-risk topics tend to have scarce supportive voices and stronger adversarial structures**, suggesting that evidence-led response materials, third-party validation, and FAQ-based content supply are more effective than direct confrontation.
+
+---
+
+## Analytical Framework
+This project extends beyond traditional sentiment analysis by separating four business-relevant layers:
+
+- **Impact**  
+  Which topics are both negative and amplifiable?
+
+- **Attribution**  
+  Which risks are more brand-specific than industry-generic?
+
+- **Dynamics**  
+  Do discussions evolve through resonance, or through confrontation and polarization?
+
+- **Priority**  
+  Which topics should be addressed first based on combined risk signals?
+
+This framework aligns the technical pipeline with the structure of the final report: from **macro validation**, to **topic-level risk mapping**, to **escalation mechanism**, and finally **action prioritization**.
+
+---
+
+## What the Pipeline Produces
+The repository exports interactive topic-level and dashboard outputs, including:
+
+- **Topic Bubble Landscape**  
+  Topic Net Negative × Topic Amplification
+
+- **Lift Ranking Bar Chart**  
+  Topics most attributable to the brand cell
+
+- **Priority Ranking**  
+  Stance-aware topic priority based on negativity, amplification, resonance strength, controversy, and topic volume
+
+- **Attribution Risk Matrix**  
+  Lift × Priority, with controversy and topic heat layered into the visualization
+
+- **NLI Stance Distribution**  
+  Support / Oppose / Neutral structure for thread-level escalation diagnosis
+
+These outputs support the report’s core questions:
+1. Is the crisis structurally more negative than baseline?
+2. Which topics are most likely to spread?
+3. Which topics are most likely to be remembered as “Shein-specific”?
+4. Why are some discussions more likely to escalate?
+5. What should the brand address first?
+
+---
+
+## End-to-End Pipeline
 ```mermaid
 graph LR
-    %% 全局样式定义：高对比度白色文字
     classDef infra fill:#2E86C1,stroke:#1B4F72,stroke-width:2px,color:#fff,font-weight:bold;
     classDef eng fill:#5DADE2,stroke:#2E86C1,stroke-width:1px,color:#fff,font-weight:bold;
     classDef ai fill:#8E44AD,stroke:#4A235A,stroke-width:2px,color:#fff,font-weight:bold;
@@ -22,27 +97,26 @@ graph LR
 
     subgraph P1 ["Phase 1: Foundation & Data Pipeline"]
         00["00_Setup_Models<br/>(Registry & Local Snapshot)"]
-        01["01_Video_Candidate<br/>(2x2 Matrix Selection)"]
+        01["01_Video_Candidate<br/>(2×2 Matrix Selection)"]
         02["02_Comment_Scraper<br/>(Multi-key API Rotation)"]
         03["03_Comment_Cleaning<br/>(Text Normalization)"]
     end
 
     subgraph P2 ["Phase 2: AI Inference"]
-        04["04_Sentiment_Analysis<br/>(RoBERTa 5-Class)"]
-        07["07_Stance_Inference<br/>(NLI Stance & Resonance)"]
+        04["04_Sentiment_Analysis<br/>(RoBERTa 5-Class Valence)"]
+        07["07_Thread_Stance_NLI<br/>(Support / Oppose / Neutral)"]
     end
 
     subgraph P3 ["Phase 3: Analytics"]
         05["05_Scorecard<br/>(Weighted Bootstrap 95% CI)"]
-        08["08_Topic_Modeling<br/>(K-means & c-TF-IDF & Stance-Aware Priority)"]
-        06["06_Interactive charts of statistical results<br/>(KPI Cards & Forest Plots)"]
+        08["08_Topic_Modeling<br/>(Lift & Stance-Aware Priority)"]
+        06["06_Dashboard_HTML<br/>(KPI Cards & Statistical Charts)"]
     end
 
     subgraph P4 ["Phase 4: Delivery"]
-        App["Streamlit Dashboard<br/>(Live Dashboard)"]
+        App["Streamlit Dashboard<br/>(Interactive Delivery Layer)"]
     end
 
-    %% 核心数据流
     01 ==> 02 ==> 03 ==> 04 ==> 05 ==> 06 ==> App
     03 ==> 07
     04 ==> 07 ==> 08 ==> App
@@ -50,103 +124,112 @@ graph LR
     00 -.-> 07
     00 -.-> 08
 
-    %% 应用样式
     class 00 infra;
     class 01,02,03 eng;
     class 04,07 ai;
     class 05,08 stat;
-    class 06 deliver;
     class App app;
 ```
 
-- Collect top-level comments and replies by video query
-- Clean and normalize text
-- Run 5-class sentiment/valence scoring
-- Build scorecards with bootstrap uncertainty
-- Estimate reply stance using NLI to quantify resonance and controversy
-- Topic modeling + attribution (Lift) to identify brand-specific risk drivers
-- Export interactive dashboards (Plotly HTML)
+---
 
-## Key idea (why this is more than sentiment)
-Negative volume is not enough. This pipeline separates:
-1) Attribution: which topics over-index in the target brand cell (Lift)
-2) Impact: how negative and how amplified a topic is (engagement)
-3) Dynamics: whether the thread is aligned (resonance) or polarizing (controversy)
-4) Priority: a stance-aware “destructiveness” score (z-score fusion)
+## Repository Structure
+- `Notebooks/` — pipeline notebooks (`00–08`) in recommended run order
+- `configs/` — YouTube search config, cleaning lexicon, model registry/lock
+- `Data/` — timestamped run outputs from raw scraping to analytics outputs
+- `app_data/` — exported HTML charts and CSV tables used by the dashboard
+- `reports/` — business-facing project report and portfolio artifacts
+- `models/` — local model snapshots for offline reproducibility (not recommended for GitHub)
 
-## Outputs include 4 interactive topic visuals:
-- Topic bubble landscape (net negative × amplification; color = Lift; hover = stance)
-- Lift ranking bar chart (topics most attributable to brand cell)
-- Priority ranking bar chart (stance-aware destructiveness)
-- Attribution risk matrix (Lift × Priority; size = heat; color = controversy)
+---
 
-## Repository structure
-- Notebooks/: pipeline notebooks (00–08), recommended run order
-- configs/: YAML configs (YouTube search, cleaning lexicon, model registry/lock)
-- Data/: timestamped run outputs (raw -> cleaned -> sentiment -> scorecard -> stance -> topic modeling)
-- app_data/: exported HTML charts and CSV tables used by the dashboard
-- models/: local model snapshots for offline runs (not recommended to commit to GitHub)
+## Notebook Pipeline
 
-## Notebook pipeline (run order)
-### 00_setup_models.ipynb
-- Downloads and pins model snapshots into models/ for offline repeatability
+### `00_setup_models.ipynb`
+Downloads and pins model snapshots for offline-ready execution.
 
-### 01_youtube_video_candidate.ipynb
-- Finds candidate videos via YouTube search config and exports CSVs for review
+### `01_youtube_video_candidate.ipynb`
+Builds the 2×2 comparison matrix and exports candidate videos for review.
 
-### 02_comment_scraper.ipynb
-- Scrapes top-level comments + replies and builds thread-level artifacts
+### `02_comment_scraper.ipynb`
+Scrapes top-level comments and replies with multi-key quota rotation and thread construction.
 
-### 03_comment_cleaning.ipynb
-- Cleans and normalizes text; outputs cleaned top-level and replies
+### `03_comment_cleaning.ipynb`
+Performs text normalization and produces model-ready and display-ready text fields.
 
-### 04_sentiment_analysis.ipynb
-- Runs 5-class sentiment/valence scoring; outputs sentiment5_top_level.parquet
+### `04_sentiment_analysis.ipynb`
+Runs 5-class valence prediction and outputs sentiment-ready comment files.
 
-### 05_scorecard.ipynb
-- Aggregates scorecard metrics + bootstrap uncertainty; exports summary tables
+### `05_scorecard.ipynb`
+Aggregates video-level metrics and estimates uncertainty using weighted bootstrap.
 
-### 06_dashboard_html.ipynb
-- Generates HTML dashboards and KPI visuals
+### `06_dashboard_html.ipynb`
+Builds HTML charts and KPI visuals for macro comparison and dashboard delivery.
 
-### 07_thread_stance_nli.ipynb
-- Runs NLI stance for replies vs parent; outputs thread-level resonance/controversy
+### `07_thread_stance_nli.ipynb`
+Runs zero-shot NLI to infer reply stance vs. parent comment and calculates resonance / controversy.
 
-### 08_topic_modeling.ipynb
-- Topic modeling + Lift attribution + stance-aware priority risk; exports 4 interactive charts
+### `08_topic_modeling.ipynb`
+Performs topic clustering, Lift attribution, and stance-aware priority ranking.
 
-## How to run (quickstart)
-### 1) Create environment and install dependencies
-- python -m venv .venv
-- activate the venv
-- pip install -r requirements.txt
+---
 
-### 2) Configure
-- Edit configs/youtube_search.yaml (query terms, constraints)
-- Optional: configs/cleaning_lexicon.yaml
-- Optional: configs/model_registry.yaml (HF endpoint, runtime profile)
+## How to Run
 
-### 3) Download models (offline-ready)
-- Run Notebooks/00_setup_models.ipynb
+### 1. Create environment and install dependencies
+```bash
+python -m venv .venv
+# activate your virtual environment
+pip install -r requirements.txt
+```
 
-### 4) Run notebooks 01 -> 08 in order
-- Each stage writes a timestamped folder under Data/
+### 2. Configure
+- Edit `configs/youtube_search.yaml`
+- Optional: edit `configs/cleaning_lexicon.yaml`
+- Optional: edit `configs/model_registry.yaml`
 
-## Dashboard / results
-- Interactive Plotly HTML exports are saved under app_data/ and the latest Data/data_06_* / Data/data_08_* folders
-- Open the HTML files directly in a browser:
-  01_topic_bubble_netneg_x_amp.html
-  02_topic_lift_bar_primary.html
-  03_priority_ranking_stance_aware.html
-  04_attribution_risk_matrix.html
+### 3. Download models
+Run:
 
-## Reproducibility notes
-- Each run writes into Data/data_XX_* with timestamps for traceability
-- Model snapshots can be pinned using registry + lockfile under configs/
+- `Notebooks/00_setup_models.ipynb`
 
-## Privacy & compliance
-- Do not commit raw scraped comments if you need to keep the repo lightweight or comply with platform policies
-- Store API keys locally and exclude them from git (use .env and .gitignore)
+### 4. Run the pipeline in order
+Run notebooks from `01` to `08`.  
+Each stage writes a timestamped output folder under `Data/`.
+
+---
+
+## Report
+The business-facing report for this project is available at:
+
+- `reports/Changyu_BrandCrisis_Analytics_Portfolio.pdf`
+
+It includes:
+- business background and research question
+- 2×2 study design
+- macro risk validation
+- topic-level risk mapping
+- brand-specific attribution analysis
+- escalation mechanism diagnosis
+- action prioritization and strategy recommendations
+- appendix with metric dictionary, cleaning rules, and model/tool notes
+
+---
+
+## Reproducibility Notes
+- Each run writes to `Data/data_XX_*` folders with timestamps
+- Model snapshots can be pinned via config registry and lockfile
+- The repo is structured to support traceability from raw comments to final charts
+
+---
+
+## Privacy & Compliance
+- Do not commit raw scraped comments if platform policy or repo size is a concern
+- Store API keys locally and exclude them from git
+- Prefer `.env` and `.gitignore` for secrets and local credentials
+
+---
 
 ## License
-- Add an MIT LICENSE (recommended for portfolio projects)
+Add an MIT License if you want to make this portfolio project publicly reusable.
+
