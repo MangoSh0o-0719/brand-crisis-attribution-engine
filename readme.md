@@ -209,7 +209,3 @@ pip install -r requirements.txt
 - 建议使用 `.env` 管理本地密钥和敏感配置
 
 ---
-
-## License
-
-如果你希望这个项目可以被他人复用，可以补充 **MIT License**。
