@@ -6,7 +6,7 @@
 
 ## 在线Dashboard
 
-[点击查看 Streamlit Dashboard](https://brand-crisis-attribution-engine-8cdyn2v5ymytewbxdrlybc.streamlit.app/)
+[点击查看 Streamlit Dashboard](https://brand-crisis-attribution-engine-lc8po9zmaamwmkulfse5cc.streamlit.app/)
 
 ---
 
