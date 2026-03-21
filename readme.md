@@ -20,7 +20,7 @@
 
 ## Dashboard 预览
 
-<img width="2844" height="1161" alt="dashboard_1" src="https://github.com/user-attachments/assets/51a8d04f-dfce-46ff-abd8-69dd72edff5b" />
+<img width="2696" height="1356" alt="image" src="https://github.com/user-attachments/assets/8b25cd39-ce7a-4d8f-914b-baa1a76857eb" />
 <img width="2787" height="1170" alt="dashboard_2" src="https://github.com/user-attachments/assets/42f568fb-b1da-4c08-a26e-d94381081f9f" />
 <img width="2850" height="1328" alt="dashboard_3" src="https://github.com/user-attachments/assets/d71bb2f3-3990-48ad-b221-3a8221e418e6" />
 
@@ -105,50 +105,7 @@
 
 ## 端到端分析流程 End-to-End Pipeline
 
-```mermaid
-graph LR
-    classDef infra fill:#2E86C1,stroke:#1B4F72,stroke-width:2px,color:#fff,font-weight:bold;
-    classDef eng fill:#5DADE2,stroke:#2E86C1,stroke-width:1px,color:#fff,font-weight:bold;
-    classDef ai fill:#8E44AD,stroke:#4A235A,stroke-width:2px,color:#fff,font-weight:bold;
-    classDef stat fill:#D35400,stroke:#6E2C00,stroke-width:2px,color:#fff,font-weight:bold;
-    classDef app fill:#27AE60,stroke:#186A3B,stroke-width:4px,color:#fff,font-weight:bold;
-
-    subgraph P1 ["Phase 1: Foundation & Data Pipeline"]
-        00["00_Setup_Models<br/>(Registry & Local Snapshot)"]
-        01["01_Video_Candidate<br/>(2×2 Matrix Selection)"]
-        02["02_Comment_Scraper<br/>(Multi-key API Rotation)"]
-        03["03_Comment_Cleaning<br/>(Text Normalization)"]
-    end
-
-    subgraph P2 ["Phase 2: AI Inference"]
-        04["04_Sentiment_Analysis<br/>(RoBERTa 5-Class Valence)"]
-        07["07_Thread_Stance_NLI<br/>(Support / Oppose / Neutral)"]
-    end
-
-    subgraph P3 ["Phase 3: Analytics"]
-        05["05_Scorecard<br/>(Weighted Bootstrap 95% CI)"]
-        08["08_Topic_Modeling<br/>(Lift & Stance-Aware Priority)"]
-        06["06_Dashboard_HTML<br/>(KPI Cards & Statistical Charts)"]
-    end
-
-    subgraph P4 ["Phase 4: Delivery"]
-        App["Streamlit Dashboard<br/>(Interactive Delivery Layer)"]
-    end
-
-    01 ==> 02 ==> 03 ==> 04 ==> 05 ==> 06 ==> App
-    03 ==> 07
-    04 ==> 07 ==> 08 ==> App
-    00 -.-> 04
-    00 -.-> 07
-    00 -.-> 08
-
-    class 00 infra;
-    class 01,02,03 eng;
-    class 04,07 ai;
-    class 05,08 stat;
-    class App app;
-```
-
+<img width="1748" height="1956" alt="研究框架" src="https://github.com/user-attachments/assets/7c0dd1a9-eee3-400c-8e99-d74042af1e2d" />
 ---
 
 ## 仓库结构 Repository Structure
