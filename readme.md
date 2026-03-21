@@ -1,92 +1,110 @@
-# Brand Crisis Attribution Engine: Strategic Sentiment & Resonance Analytics
+# Brand Crisis Attribution Engine：品牌危机归因分析引擎
 
-## Live Interactive Dashboard
-[Explore the Dashboard](https://brand-crisis-attribution-engine-8cdyn2v5ymytewbxdrlybc.streamlit.app/)
+一个面向社交媒体品牌危机诊断的端到端 **NLP 分析项目**。本项目以 **Shein 劳工争议** 为案例，基于 **2×2 对照研究设计**（目标品牌 vs. 对照品牌；危机话题 vs. 中性话题），从 YouTube 评论原始文本出发，逐步完成情绪识别、立场推断、议题聚类、风险归因和优先级排序，并最终输出可用于业务判断的可视化结果与交互式仪表盘。
 
-## Portfolio Deliverables
-- **Business Report (PDF):** `reports/Changyu_BrandCrisis_Analytics_Portfolio.pdf`
-- **Interactive Dashboard:** Streamlit app above
-- **Code & Notebooks:** current repository
+---
 
-## Dashboard Preview
-<img width="2844" height="1161" alt="dashboard_1" src="https://github.com/user-attachments/assets/51a8d04f-dfce-46f6-abd8-69dd72edff5b" />
+## 在线Dashboard
+
+[点击查看 Streamlit Dashboard](https://brand-crisis-attribution-engine-8cdyn2v5ymytewbxdrlybc.streamlit.app/)
+
+---
+
+## 项目交付物
+
+- **项目报告（PDF）**：`reports/Changyu_BrandCrisis_Analytics_Portfolio.pdf`
+- **交互式仪表盘**：上方 Streamlit 应用
+- **代码与分析 Notebook**：当前仓库
+
+---
+
+## Dashboard 预览
+
+<img width="2844" height="1161" alt="dashboard_1" src="https://github.com/user-attachments/assets/51a8d04f-dfce-46ff-abd8-69dd72edff5b" />
 <img width="2787" height="1170" alt="dashboard_2" src="https://github.com/user-attachments/assets/42f568fb-b1da-4c08-a26e-d94381081f9f" />
 <img width="2850" height="1328" alt="dashboard_3" src="https://github.com/user-attachments/assets/d71bb2f3-3990-48ad-b221-3a8221e418e6" />
 
 ---
 
-## Project Overview
-This project is an end-to-end NLP analytics pipeline for diagnosing brand crises on social media. Using **Shein’s labor controversy** as a case study, the project applies a **2×2 comparative design**—target brand vs. peers, crisis topic vs. neutral topic—to move from raw YouTube comments to business-facing outputs such as:
+## 项目概述
 
-- **macro risk validation**
-- **high-risk topic identification**
-- **brand-specific attribution analysis**
-- **discussion escalation diagnosis**
-- **response prioritization**
+本项目是一个面向品牌危机诊断的端到端文本分析流程。不同于只停留在“负面情绪多不多”的描述层面，本项目更关注一个更具业务决策价值的问题：
 
-Rather than stopping at sentiment description, this project focuses on a more decision-oriented question:
+> **哪些风险只是噪音，哪些风险既容易被放大，又容易被稳定归因到品牌本身？**
 
-> **Which risks are merely noisy, and which are both amplifiable and likely to be stably attributed to the brand?**
+围绕这个问题，项目从 YouTube 评论抓取与清洗开始，逐步完成：
 
-The full business-facing write-up is available in the report:  
+- **宏观风险验证**
+- **高风险议题识别**
+- **品牌专属性归因分析**
+- **讨论升级机制诊断**
+- **响应优先级排序**
+
+项目完整的业务分析写作见报告：  
 `reports/Changyu_BrandCrisis_Analytics_Portfolio.pdf`
 
 ---
 
-## Key Findings
-- **Shein-related labor discussions show materially higher composite risk** than benchmark comparison cells, indicating a real crisis increment rather than isolated negative noise.
-- **Topic-level analysis identifies high-risk themes** in labor exploitation, purchase refusal/rationalization, influencer backlash, and fast-fashion value conflict.
-- **High-risk topics tend to have scarce supportive voices and stronger adversarial structures**, suggesting that evidence-led response materials, third-party validation, and FAQ-based content supply are more effective than direct confrontation.
+## 关键发现 Key Findings
+
+- **Shein 在劳工争议语境下呈现出显著更高的综合风险水平**，相较于对照组并非单纯的负面噪音堆积，而是存在真实的危机增量。
+- **议题层面的高风险主题**主要集中在劳工剥削、拒购/消费阻断、网红洗白反噬，以及围绕快时尚价值观的冲突讨论。
+- **高风险议题往往伴随支持声稀缺、对立结构更强的讨论特征**，这意味着与其直接对线，更适合通过证据材料、第三方背书和 FAQ 型内容来进行回应。
 
 ---
 
-## Analytical Framework
-This project extends beyond traditional sentiment analysis by separating four business-relevant layers:
+## 分析框架 Analytical Framework
 
-- **Impact**  
-  Which topics are both negative and amplifiable?
+本项目并不把品牌危机简单理解为“负面情绪上升”，而是进一步拆成四个更贴近业务判断的问题层：
 
-- **Attribution**  
-  Which risks are more brand-specific than industry-generic?
+### 1. Impact（影响强度）
+哪些议题既负面，又具有较强的放大潜力？
 
-- **Dynamics**  
-  Do discussions evolve through resonance, or through confrontation and polarization?
+### 2. Attribution（品牌归因）
+哪些风险更容易被认为是“品牌自身问题”，而不是行业共性问题？
 
-- **Priority**  
-  Which topics should be addressed first based on combined risk signals?
+### 3. Dynamics（讨论机制）
+讨论是通过共鸣扩散，还是通过对立和极化不断升级？
 
-This framework aligns the technical pipeline with the structure of the final report: from **macro validation**, to **topic-level risk mapping**, to **escalation mechanism**, and finally **action prioritization**.
+### 4. Priority（响应优先级）
+综合负面程度、放大潜力、品牌归因性和争议结构后，哪些议题应该优先处理？
+
+这一框架对应了最终报告的分析路径：  
+从**宏观验证**，到**议题层风险地图**，再到**升级机制诊断**，最后形成**行动优先级判断**。
 
 ---
 
-## What the Pipeline Produces
-The repository exports interactive topic-level and dashboard outputs, including:
+## 项目输出内容 What the Pipeline Produces
+
+项目最终输出了多类可视化结果和交互式图表，包括：
 
 - **Topic Bubble Landscape**  
-  Topic Net Negative × Topic Amplification
+  议题净负面程度 × 议题放大潜力
 
 - **Lift Ranking Bar Chart**  
-  Topics most attributable to the brand cell
+  最容易被归因到品牌本身的议题排序
 
 - **Priority Ranking**  
-  Stance-aware topic priority based on negativity, amplification, resonance strength, controversy, and topic volume
+  基于负面程度、放大性、立场结构、争议度和议题热度的综合优先级排序
 
 - **Attribution Risk Matrix**  
-  Lift × Priority, with controversy and topic heat layered into the visualization
+  品牌归因性 × 处理优先级的风险矩阵，并叠加争议度与议题热度信息
 
 - **NLI Stance Distribution**  
-  Support / Oppose / Neutral structure for thread-level escalation diagnosis
+  Support / Oppose / Neutral 立场分布，用于观察讨论中的共鸣与对立结构
 
-These outputs support the report’s core questions:
-1. Is the crisis structurally more negative than baseline?
-2. Which topics are most likely to spread?
-3. Which topics are most likely to be remembered as “Shein-specific”?
-4. Why are some discussions more likely to escalate?
-5. What should the brand address first?
+这些输出共同服务于几个核心问题：
+
+1. 危机是否在结构上显著高于基线？
+2. 哪些议题最容易扩散？
+3. 哪些议题最容易被记成“品牌专属风险”？
+4. 为什么有些讨论更容易升级？
+5. 品牌应该优先回应什么？
 
 ---
 
-## End-to-End Pipeline
+## 端到端分析流程 End-to-End Pipeline
+
 ```mermaid
 graph LR
     classDef infra fill:#2E86C1,stroke:#1B4F72,stroke-width:2px,color:#fff,font-weight:bold;
@@ -133,103 +151,108 @@ graph LR
 
 ---
 
-## Repository Structure
-- `Notebooks/` — pipeline notebooks (`00–08`) in recommended run order
-- `configs/` — YouTube search config, cleaning lexicon, model registry/lock
-- `Data/` — timestamped run outputs from raw scraping to analytics outputs
-- `app_data/` — exported HTML charts and CSV tables used by the dashboard
-- `reports/` — business-facing project report and portfolio artifacts
-- `models/` — local model snapshots for offline reproducibility (not recommended for GitHub)
+## 仓库结构 Repository Structure
+
+- `Notebooks/` —— 按推荐顺序排列的分析 Notebook（`00–08`）
+- `configs/` —— YouTube 搜索配置、清洗词典、模型注册表等配置文件
+- `Data/` —— 从原始抓取到分析输出的分阶段时间戳文件夹
+- `app_data/` —— Dashboard 使用的 HTML 图表和 CSV 结果表
+- `reports/` —— 项目报告与展示材料
+- `models/` —— 本地模型快照，用于离线复现（不建议直接上传到 GitHub）
 
 ---
 
-## Notebook Pipeline
+## Notebook 流程说明
 
 ### `00_setup_models.ipynb`
-Downloads and pins model snapshots for offline-ready execution.
+下载并锁定本地模型快照，支持后续离线运行。
 
 ### `01_youtube_video_candidate.ipynb`
-Builds the 2×2 comparison matrix and exports candidate videos for review.
+构建 2×2 对照矩阵，并导出候选视频列表。
 
 ### `02_comment_scraper.ipynb`
-Scrapes top-level comments and replies with multi-key quota rotation and thread construction.
+使用多 API key 轮换抓取评论与回复，并重建 thread 结构。
 
 ### `03_comment_cleaning.ipynb`
-Performs text normalization and produces model-ready and display-ready text fields.
+完成文本标准化与清洗，生成模型输入和展示用文本字段。
 
 ### `04_sentiment_analysis.ipynb`
-Runs 5-class valence prediction and outputs sentiment-ready comment files.
+运行 5 分类情绪预测，生成可用于后续统计分析的情绪结果。
 
 ### `05_scorecard.ipynb`
-Aggregates video-level metrics and estimates uncertainty using weighted bootstrap.
+按视频聚合核心指标，并通过 weighted bootstrap 估计不确定性区间。
 
 ### `06_dashboard_html.ipynb`
-Builds HTML charts and KPI visuals for macro comparison and dashboard delivery.
+生成 KPI 卡片、统计图表和 Dashboard 所需 HTML 可视化内容。
 
 ### `07_thread_stance_nli.ipynb`
-Runs zero-shot NLI to infer reply stance vs. parent comment and calculates resonance / controversy.
+运行 zero-shot NLI，对回复与父评论之间的立场关系进行推断，并计算共鸣度与争议度。
 
 ### `08_topic_modeling.ipynb`
-Performs topic clustering, Lift attribution, and stance-aware priority ranking.
+完成议题聚类、Lift 品牌归因分析和考虑立场结构的优先级排序。
 
 ---
 
-## How to Run
+## 如何运行 How to Run
 
-### 1. Create environment and install dependencies
+### 1. 创建环境并安装依赖
 ```bash
 python -m venv .venv
 # activate your virtual environment
 pip install -r requirements.txt
 ```
 
-### 2. Configure
-- Edit `configs/youtube_search.yaml`
-- Optional: edit `configs/cleaning_lexicon.yaml`
-- Optional: edit `configs/model_registry.yaml`
+### 2. 配置文件
+- 编辑 `configs/youtube_search.yaml`
+- 可选编辑 `configs/cleaning_lexicon.yaml`
+- 可选编辑 `configs/model_registry.yaml`
 
-### 3. Download models
-Run:
+### 3. 下载模型
+先运行：
 
 - `Notebooks/00_setup_models.ipynb`
 
-### 4. Run the pipeline in order
-Run notebooks from `01` to `08`.  
-Each stage writes a timestamped output folder under `Data/`.
+### 4. 按顺序执行 Notebook
+依次运行 `01` 到 `08`。  
+每个阶段都会在 `Data/` 目录下生成带时间戳的输出文件夹。
 
 ---
 
-## Report
-The business-facing report for this project is available at:
+## 项目报告 Report
+
+本项目的业务分析报告位于：
 
 - `reports/Changyu_BrandCrisis_Analytics_Portfolio.pdf`
 
-It includes:
-- business background and research question
-- 2×2 study design
-- macro risk validation
-- topic-level risk mapping
-- brand-specific attribution analysis
-- escalation mechanism diagnosis
-- action prioritization and strategy recommendations
-- appendix with metric dictionary, cleaning rules, and model/tool notes
+报告内容包括：
+
+- 项目背景与研究问题
+- 2×2 研究设计
+- 宏观风险验证
+- 议题层风险识别
+- 品牌专属性归因分析
+- 讨论升级机制诊断
+- 响应优先级与策略建议
+- 指标说明、清洗规则与模型工具补充说明
 
 ---
 
-## Reproducibility Notes
-- Each run writes to `Data/data_XX_*` folders with timestamps
-- Model snapshots can be pinned via config registry and lockfile
-- The repo is structured to support traceability from raw comments to final charts
+## 可复现性说明 Reproducibility Notes
+
+- 每次运行都会写入带时间戳的 `Data/data_XX_*` 文件夹
+- 模型版本可以通过配置文件与 lockfile 固定
+- 仓库结构支持从原始评论到最终图表的完整追踪
 
 ---
 
-## Privacy & Compliance
-- Do not commit raw scraped comments if platform policy or repo size is a concern
-- Store API keys locally and exclude them from git
-- Prefer `.env` and `.gitignore` for secrets and local credentials
+## 隐私与合规 Privacy & Compliance
+
+- 如果涉及平台政策或仓库体积限制，不建议直接提交原始抓取评论
+- API key 请务必保存在本地，并通过 `.gitignore` 排除
+- 建议使用 `.env` 管理本地密钥和敏感配置
 
 ---
 
 ## License
-Add an MIT License if you want to make this portfolio project publicly reusable.
 
+如果你希望这个项目可以被他人复用，可以补充 **MIT License**。
